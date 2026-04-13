@@ -1,0 +1,44 @@
+name: Governance
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  check:
+    name: Governance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install code-governance
+      - name: Run governance
+        id: governance
+        run: |
+          set +e
+          governance-ci-report --config governance.toml --json > /tmp/report.json 2>&1
+          set -e
+          markdown=$(python3 -c "import json; print(json.load(open('/tmp/report.json'))['markdown'])" 2>/dev/null || echo "Governance check failed.")
+          passed=$(python3 -c "import json; print('true' if json.load(open('/tmp/report.json'))['passed'] else 'false')" 2>/dev/null || echo "false")
+          echo "passed=$passed" >> $GITHUB_OUTPUT
+          echo "$markdown" > /tmp/governance-comment.md
+          echo "$markdown"
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          comment_id=$(gh api repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+            --jq '.[] | select(.body | test("^## [✅❌] Governance")) | .id' 2>/dev/null | head -1)
+          [ -n "$comment_id" ] && gh api repos/${{ github.repository }}/issues/comments/$comment_id -X DELETE 2>/dev/null || true
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/governance-comment.md
+      - name: Fail if violations
+        if: steps.governance.outputs.passed == 'false'
+        run: exit 1

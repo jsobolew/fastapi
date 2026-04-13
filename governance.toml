@@ -1,0 +1,38 @@
+[governance]
+root = "fastapi"
+language = "python"
+
+[[modules]]
+name = "core"
+path = "."
+depends_on = ["dependencies", "middleware", "openapi"]
+
+[[modules]]
+name = "dependencies"
+path = "dependencies/"
+depends_on = ["core", "security"]
+
+[[modules]]
+name = "middleware"
+path = "middleware/"
+depends_on = []
+
+[[modules]]
+name = "openapi"
+path = "openapi/"
+depends_on = ["core", "dependencies"]
+
+[[modules]]
+name = "security"
+path = "security/"
+depends_on = ["core", "openapi"]
+
+[layers]
+order = []
+
+[rules]
+no_cycles = true
+enforce_layers = false
+enforce_depends_on = true
+exclude_test_files = true
+

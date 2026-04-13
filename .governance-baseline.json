@@ -1,0 +1,287 @@
+{
+  "config_path": "governance.toml",
+  "language": "python",
+  "module_count": 5,
+  "total_files_scanned": 47,
+  "violations": [
+    {
+      "rule": "no_cycles",
+      "module": "openapi",
+      "detail": "Circular dependency: openapi -> core -> openapi",
+      "severity": "error",
+      "evidence": [
+        {
+          "source_file": "openapi/models.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "with_info_plain_validator_function",
+          "line": 5,
+          "raw_statement": "from fastapi._compat import with_info_plain_validator_function"
+        },
+        {
+          "source_file": "openapi/models.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "logger",
+          "line": 6,
+          "raw_statement": "from fastapi.logger import logger"
+        },
+        {
+          "source_file": "openapi/docs.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "jsonable_encoder",
+          "line": 5,
+          "raw_statement": "from fastapi.encoders import jsonable_encoder"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "ModelField",
+          "line": 9,
+          "raw_statement": "from fastapi._compat import (\n    ModelField,\n    Undefined,\n    get_definitions,\n    get_flat_models_from_fields,\n    get_model_name_map,\n    get_schema_from_model_field,\n    lenient_issubclass,\n)"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "DefaultPlaceholder",
+          "line": 18,
+          "raw_statement": "from fastapi.datastructures import DefaultPlaceholder"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "jsonable_encoder",
+          "line": 26,
+          "raw_statement": "from fastapi.encoders import jsonable_encoder"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "FastAPIDeprecationWarning",
+          "line": 27,
+          "raw_statement": "from fastapi.exceptions import FastAPIDeprecationWarning"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "Body",
+          "line": 30,
+          "raw_statement": "from fastapi.params import Body, ParamTypes"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "Response",
+          "line": 31,
+          "raw_statement": "from fastapi.responses import Response"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "ModelNameMap",
+          "line": 32,
+          "raw_statement": "from fastapi.types import ModelNameMap"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "core",
+          "imported_name": "deep_dict_update",
+          "line": 33,
+          "raw_statement": "from fastapi.utils import (\n    deep_dict_update,\n    generate_operation_id_for_path,\n    is_body_allowed_for_status_code,\n)"
+        },
+        {
+          "source_file": "params.py",
+          "source_module": "core",
+          "target_module": "openapi",
+          "imported_name": "Example",
+          "line": 8,
+          "raw_statement": "from fastapi.openapi.models import Example"
+        },
+        {
+          "source_file": "applications.py",
+          "source_module": "core",
+          "target_module": "openapi",
+          "imported_name": "get_redoc_html",
+          "line": 20,
+          "raw_statement": "from fastapi.openapi.docs import (\n    get_redoc_html,\n    get_swagger_ui_html,\n    get_swagger_ui_oauth2_redirect_html,\n)"
+        },
+        {
+          "source_file": "applications.py",
+          "source_module": "core",
+          "target_module": "openapi",
+          "imported_name": "get_openapi",
+          "line": 25,
+          "raw_statement": "from fastapi.openapi.utils import get_openapi"
+        },
+        {
+          "source_file": "param_functions.py",
+          "source_module": "core",
+          "target_module": "openapi",
+          "imported_name": "Example",
+          "line": 7,
+          "raw_statement": "from fastapi.openapi.models import Example"
+        },
+        {
+          "source_file": "_compat/v2.py",
+          "source_module": "core",
+          "target_module": "openapi",
+          "imported_name": "REF_TEMPLATE",
+          "line": 19,
+          "raw_statement": "from fastapi.openapi.constants import REF_TEMPLATE"
+        }
+      ]
+    },
+    {
+      "rule": "no_cycles",
+      "module": "dependencies",
+      "detail": "Circular dependency: dependencies -> security -> openapi -> dependencies",
+      "severity": "error",
+      "evidence": [
+        {
+          "source_file": "dependencies/models.py",
+          "source_module": "dependencies",
+          "target_module": "security",
+          "imported_name": "SecurityBase",
+          "line": 9,
+          "raw_statement": "from fastapi.security.base import SecurityBase"
+        },
+        {
+          "source_file": "dependencies/utils.py",
+          "source_module": "dependencies",
+          "target_module": "security",
+          "imported_name": "SecurityScopes",
+          "line": 50,
+          "raw_statement": "from fastapi.security.oauth2 import SecurityScopes"
+        },
+        {
+          "source_file": "security/open_id_connect_url.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 4,
+          "raw_statement": "from fastapi.openapi.models import OpenIdConnect as OpenIdConnectModel"
+        },
+        {
+          "source_file": "security/oauth2.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 5,
+          "raw_statement": "from fastapi.openapi.models import OAuth2 as OAuth2Model"
+        },
+        {
+          "source_file": "security/oauth2.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 6,
+          "raw_statement": "from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel"
+        },
+        {
+          "source_file": "security/api_key.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": "APIKey",
+          "line": 4,
+          "raw_statement": "from fastapi.openapi.models import APIKey, APIKeyIn"
+        },
+        {
+          "source_file": "security/http.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 7,
+          "raw_statement": "from fastapi.openapi.models import HTTPBase as HTTPBaseModel"
+        },
+        {
+          "source_file": "security/http.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 8,
+          "raw_statement": "from fastapi.openapi.models import HTTPBearer as HTTPBearerModel"
+        },
+        {
+          "source_file": "security/base.py",
+          "source_module": "security",
+          "target_module": "openapi",
+          "imported_name": null,
+          "line": 1,
+          "raw_statement": "from fastapi.openapi.models import SecurityBase as SecurityBaseModel"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "dependencies",
+          "imported_name": "Dependant",
+          "line": 19,
+          "raw_statement": "from fastapi.dependencies.models import Dependant"
+        },
+        {
+          "source_file": "openapi/utils.py",
+          "source_module": "openapi",
+          "target_module": "dependencies",
+          "imported_name": "_get_flat_fields_from_params",
+          "line": 20,
+          "raw_statement": "from fastapi.dependencies.utils import (\n    _get_flat_fields_from_params,\n    get_flat_dependant,\n    get_flat_params,\n    get_validation_alias,\n)"
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "core",
+      "total_symbols": 157,
+      "externally_used_symbols": 46,
+      "internal_edges": 88,
+      "external_edges": 16,
+      "public_surface_ratio": 0.293,
+      "cohesion_ratio": 0.8462
+    },
+    {
+      "name": "dependencies",
+      "total_symbols": 40,
+      "externally_used_symbols": 11,
+      "internal_edges": 1,
+      "external_edges": 33,
+      "public_surface_ratio": 0.275,
+      "cohesion_ratio": 0.0294
+    },
+    {
+      "name": "middleware",
+      "total_symbols": 3,
+      "externally_used_symbols": 1,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "public_surface_ratio": 0.3333,
+      "cohesion_ratio": null
+    },
+    {
+      "name": "openapi",
+      "total_symbols": 58,
+      "externally_used_symbols": 8,
+      "internal_edges": 3,
+      "external_edges": 25,
+      "public_surface_ratio": 0.1379,
+      "cohesion_ratio": 0.1071
+    },
+    {
+      "name": "security",
+      "total_symbols": 24,
+      "externally_used_symbols": 2,
+      "internal_edges": 21,
+      "external_edges": 11,
+      "public_surface_ratio": 0.0833,
+      "cohesion_ratio": 0.6562
+    }
+  ]
+}
